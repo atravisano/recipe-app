@@ -68,3 +68,12 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+## TODO
+
+Create Grocery shopping app with API https://spoonacular.com/food-api/docs
+https://developer.edamam.com/edamam-recipe-api
+Use Material UI https://mui.com/core/
+
+## Sample request
+curl -X GET --header "Accept: application/json" "https://api.edamam.com/api/recipes/v2?type=public&q=chicken&app_id=ed0cbb27&app_key=8b36dd636f644bab926f0e2e6f8d28c5"
