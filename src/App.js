@@ -1,5 +1,18 @@
 import './App.css';
+import ApiService from './shared/services/ApiService';
+import Footer from './shared/components/Footer';
 import React from 'react';
+import AppBar from '@mui/material/AppBar';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import CssBaseline from '@mui/material/CssBaseline';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 class App extends React.Component {
 
@@ -13,9 +26,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    fetch('https://api.edamam.com/api/recipes/v2?type=public&q=chicken&app_id=ed0cbb27&app_key=8b36dd636f644bab926f0e2e6f8d28c5',
-      { headers: { 'Content-Type': 'application/json' } })
-      .then(res => res.json())
+    new ApiService().getRecipes()
       .then(
         (result) => {
           console.log(result);
@@ -38,6 +49,8 @@ class App extends React.Component {
 
   render() {
     const { error, isLoaded, items } = this.state;
+    const theme = createTheme();
+
     if (error) {
       return <div>{error}</div>
     }
@@ -45,16 +58,66 @@ class App extends React.Component {
       return <div>Loading...</div>
     }
     return (
-      <ul>
-       { items.map(item => item.recipe).map((item, index) => (
-         <li key={index}>
-           <img src={item.image} alt={item.label}/>
-           <br></br>
-           {JSON.stringify(item)}
-         </li>)
-        )}
-      </ul>
-    );
+      <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <AppBar position="relative">
+        <Toolbar>
+          <Typography variant="h6" color="inherit" noWrap>
+            Groceries
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <main>
+        {/* Hero unit */}
+        <Box
+          sx={{
+            bgcolor: 'background.paper',
+            pt: 8,
+            pb: 6,
+          }}
+        >
+          <Container maxWidth="sm">
+            <Typography
+              component="h1"
+              variant="h2"
+              align="center"
+              color="text.primary"
+              gutterBottom
+            >
+              Recipes
+            </Typography>
+          </Container>
+        </Box>
+        <Container sx={{ py: 8 }} maxWidth="md">
+          {/* End hero unit */}
+          <Grid container spacing={4}>
+            {items.map(item => item.recipe).map((item, index) => (
+              <Grid item key={index} xs={12} sm={6} md={4}>
+                <Card
+                  sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
+                >
+                  <CardMedia
+                    component="img"
+                    image={item.image}
+                    alt={item.label}
+                  />
+                  <CardContent sx={{ flexGrow: 1 }}>
+                    <Typography gutterBottom variant="h5" component="h2">
+                      {item.label}
+                    </Typography>
+                    <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                      {Math.ceil(item.calories).toLocaleString()} Calories
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        </Container>
+      </main>
+      <Footer />
+    </ThemeProvider>
+  );
   }
 }
 
