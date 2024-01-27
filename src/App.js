@@ -3,15 +3,12 @@ import ApiService from './shared/services/ApiService';
 import Footer from './shared/components/Footer';
 import React from 'react';
 import AppBar from '@mui/material/AppBar';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
 import CssBaseline from '@mui/material/CssBaseline';
-import Grid from '@mui/material/Grid';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Recipes } from './shared/components/Recipes';
 
 class App extends React.Component {
 
@@ -69,29 +66,7 @@ class App extends React.Component {
       </AppBar>
       <main>
         <Container sx={{ py: 8 }} maxWidth="md">
-          <Grid container spacing={4}>
-            {items.map(item => item.recipe).map((item, index) => (
-              <Grid item key={index} xs={12} sm={6} md={4}>
-                <Card
-                  sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
-                >
-                  <CardMedia
-                    component="img"
-                    image={item.image}
-                    alt={item.label}
-                  />
-                  <CardContent sx={{ flexGrow: 1 }}>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      {item.label}
-                    </Typography>
-                    <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                      {Math.ceil(item.calories).toLocaleString()} Calories
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
+          <Recipes items={items}  />
         </Container>
       </main>
       <Footer />
