@@ -26,6 +26,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    // Note: This may be called twice in development environment due to React.StrictMode.
     new ApiService().getRecipes()
       .then(
         (result) => {
