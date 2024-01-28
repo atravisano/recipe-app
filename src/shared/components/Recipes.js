@@ -5,16 +5,22 @@ import { useEffect, useState } from 'react';
 import Recipe from './Recipe/Recipe';
 import recipeServiceClient from '../services/RecipeService';
 import TextField from '@mui/material/TextField';
+import { debounce } from '@mui/material';
 
 export default function Recipes() {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [recipes, setRecipes] = useState([]);
+    const [query, setQuery] = useState('chicken');
   
+    const debouncedSetQuery = (e) => debounce(setQuery(e.target.value), 500);
+
     useEffect(() => {
       const getRecipes = async () => {
+        // TODO: Handle loading. setIsLoaded(false);
         try {
-          const result = await recipeServiceClient.getRecipes();
+          console.log(query);
+          const result = await recipeServiceClient.getRecipes(query);
           setRecipes(result.hits);
         } catch (error) {
           setError(error);
@@ -24,7 +30,7 @@ export default function Recipes() {
         }
       };
       getRecipes();
-    }, [])
+    }, [query])
 
     if (error) {
         return <div>Error: {error.message}</div>;
@@ -35,7 +41,7 @@ export default function Recipes() {
         return (
           <>
             <div className="search-bar">
-              <TextField label="Search" variant="standard" margin="normal" fullWidth />
+              <TextField onChange={debouncedSetQuery} label="Search" variant="standard" margin="normal" fullWidth />
             </div>
             <Grid container spacing={4}>
               {recipes.map(item => item.recipe).map((item, index) => (
