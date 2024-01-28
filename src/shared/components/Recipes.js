@@ -1,6 +1,6 @@
 import React from 'react';
 import Grid from '@mui/material/Grid';
-import ApiService from '../services/ApiService';
+import RecipeService from '../services/RecipeService';
 import { useEffect, useState } from 'react';
 import Recipe from './Recipe/Recipe';
 
@@ -14,7 +14,7 @@ export default function Recipes() {
     // similar to componentDidMount()
     useEffect(() => {
         // Note: This may be called twice in development environment due to React.StrictMode.
-        new ApiService().getRecipes()
+        new RecipeService().getRecipes()
         .then(
             (result) => {
               setIsLoaded(true);
