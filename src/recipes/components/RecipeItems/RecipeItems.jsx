@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Recipe from '../Recipe/Recipe';
 import recipeServiceClient from '../../../shared/services/RecipeService';
 import { RecipeFilterContext } from '../../contexts/RecipeFilterContext';
+import { Skeleton } from '@mui/material';
 
 export default function RecipeItems() {
     const [error, setError] = useState(null);
@@ -30,7 +31,22 @@ export default function RecipeItems() {
     if (error) {
         return <div>Error: {error.message}</div>;
       } else if (!isLoaded) {
-        return <div>Loading...</div>;
+        return (
+          <Grid container spacing={4}>
+              <Grid item xs={12} sm={6} md={4}>
+                <Skeleton variant="rectangular" />
+              </Grid>
+              <Grid item xs={12} sm={6} md={4}>
+                <Skeleton variant="rectangular" />
+              </Grid>
+              <Grid item xs={12} sm={6} md={4}>
+                <Skeleton variant="rectangular" />
+              </Grid>
+              <Grid item xs={12} sm={6} md={4}>
+                <Skeleton variant="rectangular" />
+              </Grid>
+          </Grid>
+        );
       } else {
         console.log(recipes)
         return (
