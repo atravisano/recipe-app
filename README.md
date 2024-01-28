@@ -71,7 +71,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 ## TODO
 
-Create Grocery shopping app with API https://spoonacular.com/food-api/docs
+Create Recipe app with API https://spoonacular.com/food-api/docs
 https://developer.edamam.com/edamam-recipe-api
 Use Material UI https://mui.com/core/
 
