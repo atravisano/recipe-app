@@ -2,6 +2,17 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Getting Started
+
+Create Recipe app with API <https://developer.edamam.com/edamam-recipe-api>
+
+Once the app key and id are generated, create the file `.env.local` at project root with contents:
+
+```txt
+REACT_APP_RECIPE_APP_KEY=your_api_key 
+REACT_APP_RECIPE_APP_ID=your_app_id 
+```
+
 ## Available Scripts
 
 In the project directory, you can run:
@@ -68,19 +79,3 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
-## TODO
-
-Create Recipe app with API https://spoonacular.com/food-api/docs
-https://developer.edamam.com/edamam-recipe-api
-Use Material UI https://mui.com/core/
-
-Need to create file `.env.local` at project root with contents:
-
-```txt
-REACT_APP_RECIPE_APP_KEY=your_api_key 
-REACT_APP_RECIPE_APP_ID=your_app_id 
-```
-
-## Sample request
-curl -X GET --header "Accept: application/json" "https://api.edamam.com/api/recipes/v2?type=public&q=chicken&app_id=ed0cbb27&app_key=8b36dd636f644bab926f0e2e6f8d28c5"
