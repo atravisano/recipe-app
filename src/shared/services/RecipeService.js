@@ -1,4 +1,4 @@
-export default class RecipeService {
+export class RecipeService {
     appId = process.env.REACT_APP_RECIPE_APP_ID;
     appKey = process.env.REACT_APP_RECIPE_APP_KEY;
     baseAddress = 'https://api.edamam.com/api';
@@ -9,3 +9,6 @@ export default class RecipeService {
         return await res.json();
     }
 }
+
+const  recipeServiceClient = new RecipeService();
+export default recipeServiceClient;
