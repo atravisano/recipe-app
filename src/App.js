@@ -5,7 +5,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Recipes from './shared/components/Recipes';
+import Recipes from './shared/components/Recipes/Recipes';
 
 export default function App() {
   const theme = createTheme();

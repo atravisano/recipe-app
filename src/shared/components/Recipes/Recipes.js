@@ -2,8 +2,8 @@ import './Recipes.css';
 import React from 'react';
 import Grid from '@mui/material/Grid';
 import { useEffect, useState } from 'react';
-import Recipe from './Recipe/Recipe';
-import recipeServiceClient from '../services/RecipeService';
+import Recipe from '../Recipe/Recipe';
+import recipeServiceClient from '../../services/RecipeService';
 import TextField from '@mui/material/TextField';
 import { debounce } from '@mui/material';
 
