@@ -3,12 +3,11 @@ import { useState } from 'react';
 import { RecipeFilterContext } from '../../contexts/RecipeFilterContext';
 import RecipeItems from '../../components/RecipeItems/RecipeItems';
 import TextField from '@mui/material/TextField';
-import { debounce } from '@mui/material';
 
 export default function Recipes() {
-  const [query, setQuery] = useState('chicken');
+  const [query, setQuery] = useState<string>('chicken');
 
-  const debouncedSetQuery = (e) => debounce(setQuery(e.target.value), 500);
+  const debouncedSetQuery = (event: React.ChangeEvent<HTMLInputElement>) => setQuery(event.currentTarget.value);
 
   return (
     <>

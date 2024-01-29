@@ -3,7 +3,7 @@ export class RecipeService {
     appKey = process.env.REACT_APP_RECIPE_APP_KEY;
     baseAddress = 'https://api.edamam.com/api';
 
-    async getRecipes(query) {
+    async getRecipes(query: string) {
         if (!this.isQueryMinLength(query))
           throw new Error('Recipe query must be at least 2 characters.');
 
@@ -12,7 +12,7 @@ export class RecipeService {
         return await response.json();
     }
 
-    isQueryMinLength(query) {
+    isQueryMinLength(query: string) {
         return query.length >= 2;
     }
 }
