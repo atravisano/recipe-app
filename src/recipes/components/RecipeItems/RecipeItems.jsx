@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Recipe from '../Recipe/Recipe';
 import recipeServiceClient from '../../../shared/services/RecipeService';
 import { RecipeFilterContext } from '../../contexts/RecipeFilterContext';
-import { Skeleton } from '@mui/material';
+import { Skeleton, Alert } from '@mui/material';
 
 export default function RecipeItems() {
     const [error, setError] = useState(null);
@@ -14,6 +14,11 @@ export default function RecipeItems() {
   
     useEffect(() => {
       const getRecipes = async () => {
+        if (!recipeServiceClient.isQueryMinLength(filter.query)) {
+          setRecipes([]);
+          return;
+        }
+
         setIsLoaded(false);
         try {
           const result = await recipeServiceClient.getRecipes(filter.query);
@@ -44,8 +49,11 @@ export default function RecipeItems() {
               </Grid>
           </Grid>
         );
+      } else if (!recipeServiceClient.isQueryMinLength(filter.query)) {
+        return (
+          <Alert severity="info">Search requires at least 2 characters.</Alert>
+        );
       } else {
-        console.log(recipes)
         return (
           <Grid container spacing={4}>
             {recipes.map(item => item.recipe).map((item, index) => (

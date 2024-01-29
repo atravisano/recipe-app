@@ -4,10 +4,16 @@ export class RecipeService {
     baseAddress = 'https://api.edamam.com/api';
 
     async getRecipes(query) {
+        if (!this.isQueryMinLength(query))
+          throw new Error('Recipe query must be at least 2 characters.');
 
         const response = await fetch(`${this.baseAddress}/recipes/v2?type=public&q=${query}&app_id=${this.appId}&app_key=${this.appKey}`,
             { headers: { 'Content-Type': 'application/json' } });
         return await response.json();
+    }
+
+    isQueryMinLength(query) {
+        return query.length >= 2;
     }
 }
 
