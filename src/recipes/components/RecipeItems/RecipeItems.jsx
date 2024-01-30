@@ -16,6 +16,7 @@ export default function RecipeItems() {
     const getRecipes = async () => {
       if (!recipeServiceClient.isQueryMinLength(filter.query)) {
         setRecipes([]);
+        setIsLoaded(true);
         return;
       }
 
