@@ -1,7 +1,7 @@
-import { debounce } from "@mui/material/utils";
-import { useEffect, useMemo, useRef } from "react";
+import { debounce } from '@mui/material/utils';
+import { useEffect, useMemo, useRef } from 'react';
 
-export const useDebounce = (callback: any) => {
+export const useDebounce = (callback: () => void) => {
     const ref = useRef<any>();
   
     useEffect(() => {
