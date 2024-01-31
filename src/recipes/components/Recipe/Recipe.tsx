@@ -3,7 +3,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 
-export default function Recipe({ item }) {
+export default function Recipe({ item }: { item: any }) {
   return (
     <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       <CardMedia component="img" image={item.image} alt={item.label} />

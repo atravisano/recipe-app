@@ -7,9 +7,9 @@ import { RecipeFilterContext } from '../../contexts/RecipeFilterContext';
 import { Skeleton, Alert } from '@mui/material';
 
 export default function RecipeItems() {
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<Error>();
   const [isLoaded, setIsLoaded] = useState(false);
-  const [recipes, setRecipes] = useState([]);
+  const [recipes, setRecipes] = useState<any[]>([]);
   const filter = useContext(RecipeFilterContext);
 
   useEffect(() => {
@@ -25,7 +25,11 @@ export default function RecipeItems() {
         const result = await recipeServiceClient.getRecipes(filter.query);
         setRecipes(result.hits);
       } catch (error) {
-        setError(error);
+        if (error instanceof Error) {
+          setError(error);
+          return;
+        }
+        throw error;
       } finally {
         setIsLoaded(true);
       }
