@@ -1,7 +1,12 @@
-import TextField from '@mui/material/TextField';
 import { useState } from 'react';
+import TextField from '@mui/material/TextField';
 
-export default function RecipeSearch({ handleOnChange, value }: { handleOnChange: (value: string) => void, value: string }) {
+interface SearchProps {
+  handleOnChange: (value: string) => void;
+  value: string;
+}
+
+export default function RecipeSearch({ handleOnChange, value }: SearchProps) {
   const [query, setQuery] = useState<string>(value);
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
