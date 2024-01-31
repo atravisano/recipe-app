@@ -1,16 +1,19 @@
 import TextField from '@mui/material/TextField';
 import { useState } from 'react';
 
-export default function RecipeSearch() {
-  const [query, setQuery] = useState<string>('chicken');
+export default function RecipeSearch({ handleOnChange, value }: { handleOnChange: (value: string) => void, value: string }) {
+  const [query, setQuery] = useState<string>(value);
 
-  const debouncedSetQuery = (event: React.ChangeEvent<HTMLInputElement>) =>
-    setQuery(event.currentTarget.value);
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.currentTarget.value;
+    setQuery(value);
+    handleOnChange(value);
+  };
 
   return (
     <div className="search-bar">
         <TextField
-          onChange={debouncedSetQuery}
+          onChange={onChange}
           label="Search"
           variant="standard"
           margin="normal"

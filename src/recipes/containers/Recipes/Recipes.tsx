@@ -2,26 +2,18 @@ import './Recipes.css';
 import { useState } from 'react';
 import { RecipeFilterContext } from '../../contexts/RecipeFilterContext';
 import RecipeItems from '../../components/RecipeItems/RecipeItems';
-import TextField from '@mui/material/TextField';
+import RecipeSearch from '../../components/RecipeSearch/RecipeSearch';
 
 export default function Recipes() {
   const [query, setQuery] = useState<string>('chicken');
-
-  const debouncedSetQuery = (event: React.ChangeEvent<HTMLInputElement>) =>
-    setQuery(event.currentTarget.value);
+  
+  const onChange = (value: string) => {
+    setQuery(value);
+  }
 
   return (
     <>
-      <div className="search-bar">
-        <TextField
-          onChange={debouncedSetQuery}
-          label="Search"
-          variant="standard"
-          margin="normal"
-          fullWidth
-          value={query}
-        />
-      </div>
+      <RecipeSearch handleOnChange={onChange} value={query} />
       <RecipeFilterContext.Provider value={{ query }}>
         <RecipeItems />
       </RecipeFilterContext.Provider>
