@@ -5,11 +5,12 @@ import Recipe from '../Recipe/Recipe';
 import recipeServiceClient from '../../../shared/services/RecipeService';
 import { RecipeFilterContext } from '../../contexts/RecipeFilterContext';
 import { Skeleton, Alert } from '@mui/material';
+import { Hit } from '../../../shared/models/recipes';
 
 export default function RecipeItems() {
   const [error, setError] = useState<Error>();
   const [isLoaded, setIsLoaded] = useState(false);
-  const [recipes, setRecipes] = useState<any[]>([]);
+  const [recipes, setRecipes] = useState<Hit[]>([]);
   const filter = useContext(RecipeFilterContext);
 
   useEffect(() => {

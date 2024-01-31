@@ -2,8 +2,9 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
+import { Recipe as RecipeModel } from '../../../shared/models/recipes';
 
-export default function Recipe({ item }: { item: any }) {
+export default function Recipe({ item }: { item: RecipeModel }) {
   return (
     <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       <CardMedia component="img" image={item.image} alt={item.label} />
