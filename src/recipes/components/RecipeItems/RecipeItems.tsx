@@ -1,46 +1,30 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import Grid from '@mui/material/Grid';
-import { useEffect, useState } from 'react';
 import Recipe from '../Recipe/Recipe';
 import recipeServiceClient from '../../../shared/services/RecipeService';
 import { RecipeFilterContext } from '../../contexts/RecipeFilterContext';
 import { Skeleton, Alert } from '@mui/material';
-import { Hit } from '../../../shared/models/recipes';
+import { RecipesResponse } from '../../../shared/models/recipes';
+import { useQuery } from '@tanstack/react-query';
 
 export default function RecipeItems() {
-  const [error, setError] = useState<Error>();
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [recipes, setRecipes] = useState<Hit[]>([]);
   const filter = useContext(RecipeFilterContext);
 
-  useEffect(() => {
-    const getRecipes = async () => {
+  const query = useQuery({
+    queryKey: ['recipes', filter.query],
+    queryFn: async () => {
       if (!recipeServiceClient.isQueryMinLength(filter.query)) {
-        setRecipes([]);
-        setIsLoaded(true);
-        return;
+        return {} as RecipesResponse;
       }
 
-      setIsLoaded(false);
-      try {
-        const result = await recipeServiceClient.getRecipes(filter.query);
-        setRecipes(result.hits);
-      } catch (error) {
-        if (error instanceof Error) {
-          setError(error);
-          return;
-        }
-        throw error;
-      } finally {
-        setIsLoaded(true);
-      }
-    };
-    getRecipes();
-  }, [filter]);
+      return await recipeServiceClient.getRecipes(filter.query);
+    },
+    select: (data) => data.hits.map(h => h.recipe)
+  })
 
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  } else if (!isLoaded) {
+  if (query.isError) {
+    return <div>Error: {query.error.message}</div>;
+  } else if (query.isPending) {
     return (
       <Grid container spacing={4}>
         <Grid item xs={12} sm={6} md={4}>
@@ -61,11 +45,10 @@ export default function RecipeItems() {
   } else {
     return (
       <Grid container spacing={4}>
-        {recipes
-          .map((item) => item.recipe)
-          .map((item, index) => (
+        {query.data
+          .map((recipe, index) => (
             <Grid item key={index} xs={12} sm={6} md={4}>
-              <Recipe item={item} />
+              <Recipe item={recipe} />
             </Grid>
           ))}
       </Grid>
