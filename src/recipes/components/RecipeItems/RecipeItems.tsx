@@ -1,23 +1,19 @@
-import { useContext } from 'react';
 import Grid from '@mui/material/Grid';
 import Recipe from '../Recipe/Recipe';
 import recipeServiceClient from '../../../shared/services/RecipeService';
-import { RecipeFilterContext } from '../../contexts/RecipeFilterContext';
 import { Skeleton, Alert } from '@mui/material';
 import { RecipesResponse } from '../../../shared/models/recipes';
 import { useQuery } from '@tanstack/react-query';
 
-export default function RecipeItems() {
-  const filter = useContext(RecipeFilterContext);
-
+export default function RecipeItems({ searchTerm }: { searchTerm: string }) {
   const query = useQuery({
-    queryKey: ['recipes', filter.query],
+    queryKey: ['recipes', searchTerm],
     queryFn: async () => {
-      if (!recipeServiceClient.isQueryMinLength(filter.query)) {
+      if (!recipeServiceClient.isQueryMinLength(searchTerm)) {
         return {} as RecipesResponse;
       }
 
-      return await recipeServiceClient.getRecipes(filter.query);
+      return await recipeServiceClient.getRecipes(searchTerm);
     },
     select: (data) => data.hits.map(h => h.recipe)
   })
@@ -38,7 +34,7 @@ export default function RecipeItems() {
         </Grid>
       </Grid>
     );
-  } else if (!recipeServiceClient.isQueryMinLength(filter.query)) {
+  } else if (!recipeServiceClient.isQueryMinLength(searchTerm)) {
     return (
       <Alert severity="info">Search requires at least 2 characters.</Alert>
     );
