@@ -22,14 +22,14 @@ export default function RecipeSearch({ handleOnChange, value }: SearchProps) {
 
   return (
     <div className="search-bar">
-        <TextField
-          onChange={onChange}
-          label="Search"
-          variant="standard"
-          margin="normal"
-          fullWidth
-          value={query}
-        />
+      <TextField
+        onChange={onChange}
+        label="Search"
+        variant="standard"
+        margin="normal"
+        fullWidth
+        value={query}
+      />
     </div>
   );
 }
